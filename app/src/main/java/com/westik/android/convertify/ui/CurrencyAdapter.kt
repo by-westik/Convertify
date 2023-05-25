@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.westik.android.convertify.databinding.CurrencyItemBinding
-import com.westik.android.convertify.models.ExchangeRates
-import java.lang.Exception
 
 class CurrencyViewHolder(
     private val binding: CurrencyItemBinding

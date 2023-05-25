@@ -18,10 +18,8 @@ abstract class BaseRepository {
             } catch (throwable: Throwable) {
                 when (throwable) {
                     is HttpException -> {
-                        Log.d(TAG, "Not network error")
                         Resource.Failure(false, throwable.code(), throwable.response()?.errorBody())
                     } else -> {
-                        Log.d(TAG, "Network Error")
                         Resource.Failure(true, null, null)
                     }
                 }

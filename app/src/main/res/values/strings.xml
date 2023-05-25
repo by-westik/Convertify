@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Convertify</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="currency_convert_title">%1$s RUB = %2$s %3$s</string>
+    <string name="network_problem">Ошибка сети</string>
 </resources>
