@@ -10,17 +10,17 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/top_app_bar"
-            android:background="@color/white"
+        <SearchView
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/main_menu"
-            />
+            android:queryHint="@string/currency_code"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -58,6 +58,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <ImageView
+        android:id="@+id/imv_not_found"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_not_found"
+        app:tint="@color/spanish_gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_not_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currency_not_found"
+        android:visibility="gone"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/imv_not_found"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ProgressBar
         android:id="@+id/loading"

@@ -1,12 +1,15 @@
 package com.westik.android.convertify.ui
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.westik.android.convertify.databinding.FragmentHomeBinding
 import com.westik.android.convertify.helpers.ExchangeRatesHelper.Companion.createPairs
+import com.westik.android.convertify.helpers.ExchangeRatesHelper.Companion.currencies
 import com.westik.android.convertify.models.Currency
 import com.westik.android.convertify.models.Resource
 import com.westik.android.convertify.viewmodels.CurrencyViewModel
@@ -35,7 +39,11 @@ class HomeFragment : Fragment() {
     private lateinit var imvNetworkProblem: ImageView
     private lateinit var tvNetworkProblem: TextView
     private lateinit var progressBar: ProgressBar
+    private lateinit var searchView: SearchView
+    private lateinit var imvNotFound: ImageView
+    private lateinit var tvNotFound: TextView
 
+    private lateinit var pairs: List<Pair<String, Double>>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,8 +54,12 @@ class HomeFragment : Fragment() {
         imvNetworkProblem = binding.imvNetworkProblem
         tvNetworkProblem = binding.tvNetworkProblem
         progressBar = binding.loading
+        searchView = binding.searchView
+        imvNotFound = binding.imvNotFound
+        tvNotFound = binding.tvNotFound
 
         setupRecyclerView()
+        setupSearchView()
 
         return view
     }
@@ -68,9 +80,10 @@ class HomeFragment : Fragment() {
         currencyViewModel.allCurrencyResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
+                    pairs = createPairs(it.value.exchangeRates)
                     progressBar.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
-                    rvAdapter.updateAdapter(createPairs(it.value.exchangeRates))
+                    rvAdapter.updateAdapter(pairs)
                 }
                 else -> {
                     progressBar.visibility = View.GONE
@@ -83,5 +96,54 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun setupSearchView() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    if (!currencies.contains(query.uppercase())) {
+                        notFound()
+                    } else {
+                        found()
+                        val list = listOf(pairs.first{ it.first == query.uppercase()})
+                        rvAdapter.updateAdapter(list)
+                    }
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    val list = pairs.filter { it.first.startsWith(newText.toString()) }
+                    if (list.isNotEmpty()) {
+                        rvAdapter.updateAdapter(list)
+                    } else {
+                        notFound()
+                    }
+                } else {
+                    found()
+                    rvAdapter.updateAdapter(pairs)
+                }
+                return false
+            }
+
+        })
+        searchView.setOnCloseListener {
+            found()
+            rvAdapter.updateAdapter(pairs)
+            false
+        }
+    }
+
+    private fun found() {
+        recyclerView.visibility = View.VISIBLE
+        imvNotFound.visibility = View.GONE
+        tvNotFound.visibility = View.GONE
+    }
+
+    private fun notFound() {
+        recyclerView.visibility = View.GONE
+        imvNotFound.visibility = View.VISIBLE
+        tvNotFound.visibility = View.VISIBLE
+    }
 
 }

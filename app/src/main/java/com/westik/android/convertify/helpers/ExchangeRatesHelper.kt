@@ -50,5 +50,13 @@ class ExchangeRatesHelper {
             Pair("XRP", list.XRP),
             Pair("ZAR", list.ZAR)
         )
+
+        val currencies = listOf("ARS", "AUD", "BCH", "BGN", "BNB", "BRL", "BTC", "CAD", "CHF", "CNY", "CZK", "DKK", "DOGE",
+            "DZD", "ETH", "EUR", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW",
+            "LTC", "MAD", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SEK", "SGD", "THB", "TRY",
+            "TWD", "USD", "XRP", "ZAR")
     }
+
+
+
 }

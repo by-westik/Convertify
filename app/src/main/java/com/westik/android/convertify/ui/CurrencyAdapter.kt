@@ -30,7 +30,7 @@ class CurrencyAdapter(
     }
 
     // TODO как-то это исправить
-    override fun getItemCount(): Int = 43
+    override fun getItemCount(): Int = pairs?.size ?: 0
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         if (pairs != null) {

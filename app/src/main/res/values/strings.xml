@@ -3,4 +3,6 @@
 
     <string name="currency_convert_title">%1$s RUB = %2$s %3$s</string>
     <string name="network_problem">Ошибка сети</string>
+    <string name="currency_code">Код валюты</string>
+    <string name="currency_not_found">Валюта не найдена</string>
 </resources>
