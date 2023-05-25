@@ -9,7 +9,24 @@
         android:id="@+id/homeFragment"
         android:name="com.westik.android.convertify.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home"
-        />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_converterFragment"
+            app:destination="@id/converterFragment"
+            app:popUpTo="@id/homeFragment">
+
+            <argument
+                android:name="currencyArgument"
+                app:argType="com.westik.android.convertify.models.Currency"/>
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/converterFragment"
+        android:name="com.westik.android.convertify.ui.ConverterFragment"
+        android:label="fragment_converter"
+        tools:layout="@layout/fragment_converter"/>
 
 </navigation>

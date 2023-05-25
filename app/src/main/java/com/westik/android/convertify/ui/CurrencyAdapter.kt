@@ -23,7 +23,8 @@ class CurrencyViewHolder(
 
 }
 class CurrencyAdapter(
-    var pairs: List<Pair<String, Double?>>? = null
+    var pairs: List<Pair<String, Double>>? = null,
+    private val onItemClick: (item: Pair<String, Double>) -> Unit
 ) : RecyclerView.Adapter<CurrencyViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
@@ -38,12 +39,16 @@ class CurrencyAdapter(
             val item = pairs!![position]
             Log.d(TAG, "ITEM = ${item.first} ${item.second}")
             holder.bind(item)
+
+            holder.itemView.setOnClickListener {
+                onItemClick(item)
+            }
         }
     }
 
 
 
-    fun updateAdapter(list: List<Pair<String, Double?>>) {
+    fun updateAdapter(list: List<Pair<String, Double>>) {
         this.pairs = list
         notifyDataSetChanged()
     }

@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.westik.android.convertify.R
 import com.westik.android.convertify.databinding.FragmentHomeBinding
+import com.westik.android.convertify.models.Currency
 import com.westik.android.convertify.models.ExchangeRates
 import com.westik.android.convertify.models.Resource
 import com.westik.android.convertify.viewmodels.CurrencyViewModel
@@ -40,9 +43,15 @@ class HomeFragment : Fragment() {
         return view
     }
 
+    private fun click(item: Currency) {
+        val action = HomeFragmentDirections.actionHomeFragmentToConverterFragment(item)
+        findNavController().navigate(action)
+    }
+
     private fun setupRecyclerView() {
         recyclerView = binding.rvCurrency
-        rvAdapter = CurrencyAdapter()
+        val currencyClick = {item: Pair<String, Double> -> click(Currency(item.first, item.second))}
+        rvAdapter = CurrencyAdapter(null, currencyClick)
 
         recyclerView.adapter = rvAdapter
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
