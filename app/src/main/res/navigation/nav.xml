@@ -14,19 +14,20 @@
         <action
             android:id="@+id/action_homeFragment_to_converterFragment"
             app:destination="@id/converterFragment"
-            app:popUpTo="@id/homeFragment">
+            app:popUpTo="@id/homeFragment"/>
 
-            <argument
-                android:name="currencyArgument"
-                app:argType="com.westik.android.convertify.models.Currency"/>
-
-        </action>
     </fragment>
 
     <fragment
         android:id="@+id/converterFragment"
         android:name="com.westik.android.convertify.ui.ConverterFragment"
         android:label="fragment_converter"
-        tools:layout="@layout/fragment_converter"/>
+        tools:layout="@layout/fragment_converter">
+
+        <argument
+            android:name="currencyArgument"
+            app:argType="com.westik.android.convertify.models.Currency"/>
+    </fragment>
+
 
 </navigation>
