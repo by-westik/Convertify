@@ -16,7 +16,7 @@ class CurrencyViewHolder(
     fun bind(item: Pair<String, Double?>) {
         binding.apply {
             tvCurrencyTitle.text = item.first
-            tvCurrencyRate.text = item.second.toString()
+            tvCurrencyRate.text = String.format("%.5f", item.second)
         }
 
     }
@@ -30,6 +30,7 @@ class CurrencyAdapter(
         return CurrencyViewHolder(CurrencyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
+    // TODO как-то это исправить
     override fun getItemCount(): Int = 43
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
