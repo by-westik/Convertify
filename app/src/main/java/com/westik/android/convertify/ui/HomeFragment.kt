@@ -111,7 +111,7 @@ class HomeFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (!newText.isNullOrEmpty()) {
-                    val list = pairs.filter { it.first.startsWith(newText.toString()) }
+                    val list = pairs.filter { it.first.startsWith(newText.uppercase()) }
                     if (list.isNotEmpty()) {
                         rvAdapter.updateAdapter(list)
                     } else {
