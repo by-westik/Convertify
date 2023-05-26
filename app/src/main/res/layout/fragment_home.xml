@@ -17,6 +17,7 @@
 
         <SearchView
             android:id="@+id/search_view"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:queryHint="@string/currency_code"/>

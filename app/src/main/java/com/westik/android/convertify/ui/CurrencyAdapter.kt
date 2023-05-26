@@ -1,7 +1,5 @@
 package com.westik.android.convertify.ui
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,9 +33,7 @@ class CurrencyAdapter(
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         if (pairs != null) {
             val item = pairs!![position]
-            Log.d(TAG, "ITEM = ${item.first} ${item.second}")
             holder.bind(item)
-
             holder.itemView.setOnClickListener {
                 onItemClick(item)
             }

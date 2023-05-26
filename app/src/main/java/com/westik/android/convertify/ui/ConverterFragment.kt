@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import com.westik.android.convertify.R
 import com.westik.android.convertify.databinding.FragmentConverterBinding
@@ -23,10 +24,13 @@ class ConverterFragment : Fragment() {
     lateinit var tvCurrency: TextView
     lateinit var etRubAmount: TextInputEditText
     lateinit var etCurrencyAmount: TextInputEditText
+    private lateinit var topAppBar: MaterialToolbar
 
     private val args: ConverterFragmentArgs by navArgs()
     var rubTextWatcher: TextWatcher? = null
     var curTextWatcher: TextWatcher? = null
+
+    lateinit var cur: Currency
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +42,34 @@ class ConverterFragment : Fragment() {
         tvCurrency = binding.tvCurrency
         etRubAmount = binding.etRubAmount
         etCurrencyAmount = binding.etCurrencyAmount
+        topAppBar = binding.topAppBar
 
-        setupStartValue(args.currencyArgument)
+        cur = args.currencyArgument
 
-        val cur = args.currencyArgument
+        setupStartValue()
+        setupAppBar()
+        setupRubEditText()
+        setupCurrencyEditText()
 
-        setupStartValue(cur)
+        etRubAmount.addTextChangedListener(rubTextWatcher)
+        etCurrencyAmount.addTextChangedListener(curTextWatcher)
 
+
+        return view
+    }
+
+    private fun setupStartValue() {
+        tvCurrency.text = getString(R.string.currency_convert_title, "1,000", String.format("%.3f", cur.value), cur.title)
+        etRubAmount.setText("1")
+        etCurrencyAmount.setText(cur.value.toString())
+    }
+
+    private fun setupAppBar() {
+        topAppBar.setNavigationOnClickListener {
+            activity?.onBackPressedDispatcher?.onBackPressed()
+        }
+    }
+    private fun setupRubEditText() {
         rubTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 etCurrencyAmount.removeTextChangedListener(curTextWatcher)
@@ -66,7 +91,10 @@ class ConverterFragment : Fragment() {
             }
 
         }
+    }
 
+    private fun setupCurrencyEditText() {
+        binding.tfCurrencyAmount.hint = cur.title
         curTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 etRubAmount.removeTextChangedListener(rubTextWatcher)
@@ -89,18 +117,6 @@ class ConverterFragment : Fragment() {
             }
 
         }
-
-        etRubAmount.addTextChangedListener(rubTextWatcher)
-        etCurrencyAmount.addTextChangedListener(curTextWatcher)
-
-
-        return view
-    }
-
-    private fun setupStartValue(currency: Currency) {
-        tvCurrency.text = getString(R.string.currency_convert_title, "1,000", String.format("%.3f", currency.value), currency.title)
-        etRubAmount.setText("1")
-        etCurrencyAmount.setText(currency.value.toString())
     }
 
 }

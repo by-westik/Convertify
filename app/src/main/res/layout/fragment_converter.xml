@@ -3,25 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ConverterFragment">
-    
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_back"
+            app:navigationIconTint="@color/spanish_gray"
+            android:background="@color/white"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
+        android:layout_marginHorizontal="20dp"
         android:id="@+id/tv_currency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="1 RUB = 123 EUR"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/chimney_sweep"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginHorizontal="20dp"
         android:id="@+id/tf_rub_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="RUB"
+        android:hint="@string/rub"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/tv_currency"
         app:layout_constraintStart_toStartOf="parent">
@@ -30,18 +53,17 @@
             android:id="@+id/et_rub_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/chimney_sweep"
             android:inputType="number"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginHorizontal="20dp"
         android:id="@+id/tf_currency_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:focusable="true"
-        android:clickable="true"
-        android:hint="EUR"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/tf_rub_amount"
         app:layout_constraintStart_toStartOf="parent">
@@ -50,6 +72,7 @@
             android:id="@+id/et_currency_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/chimney_sweep"
             android:inputType="number"
             />
     </com.google.android.material.textfield.TextInputLayout>

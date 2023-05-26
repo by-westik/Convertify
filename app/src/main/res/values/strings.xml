@@ -5,4 +5,5 @@
     <string name="network_problem">Ошибка сети</string>
     <string name="currency_code">Код валюты</string>
     <string name="currency_not_found">Валюта не найдена</string>
+    <string name="rub">RUB</string>
 </resources>
