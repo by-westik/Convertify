@@ -57,7 +57,6 @@ class HomeFragment : Fragment() {
         tvNotFound = binding.tvNotFound
 
         setupRecyclerView()
-        setupSearchView()
 
         return view
     }
@@ -82,6 +81,7 @@ class HomeFragment : Fragment() {
                     progressBar.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
                     rvAdapter.updateAdapter(pairs)
+                    setupSearchView()
                 }
                 else -> {
                     progressBar.visibility = View.GONE
